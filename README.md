@@ -1,210 +1,190 @@
-# LinkedIn Content Creation Agent (Nikit Bassi Style)
+# LinkedIn Content Creation Agent
+### Generating Posts in the Style of Nikit Bassi (Founder, NB Media)
+
+---
 
 ## Overview
 
-This project is an AI-powered LinkedIn Content Creation Agent that generates posts in the writing style of Nikit Bassi (Founder of NB Media).
+An AI-powered LinkedIn Content Creation Agent that generates posts mimicking the writing style of **Nikit Bassi**, Founder of NB Media.
 
-The system uses Retrieval-Augmented Generation (RAG) instead of model fine-tuning. Historical LinkedIn posts are processed, embedded, indexed with FAISS, and retrieved during generation to guide Gemini 2.5 Flash.
+Rather than fine-tuning a model, the system uses **Retrieval-Augmented Generation (RAG)**:
+- 132 historical LinkedIn posts are processed, embedded, and indexed using **FAISS**
+- Relevant posts are retrieved at generation time to guide **Gemini 2.5 Flash**
+- A structured style profile captures tone, hooks, CTAs, and formatting patterns
 
 ---
 
 ## Features
 
-### 1. Style Learning (RAG)
+### 1. Style Learning via RAG
+- Processes 132 original Nikit Bassi LinkedIn posts
+- Generates embeddings using **Sentence Transformers**
+- Stores and queries embeddings via **FAISS**
+- Retrieves contextually similar posts during generation
 
-* Processed 132 original Nikit Bassi LinkedIn posts
-* Generated embeddings using Sentence Transformers
-* Stored embeddings in FAISS
-* Retrieves similar posts during generation
-
-### 2. Style Analysis
-
-Automatically extracts:
-
-* Writing patterns
-* Hook structures
-* CTA formats
-* Topic categories
-* Formatting preferences
-
-Outputs a structured style profile.
+### 2. Automatic Style Analysis
+Extracts and outputs a structured style profile covering:
+- Writing patterns and tone
+- Hook structures
+- CTA formats
+- Topic categories
+- Formatting preferences
 
 ### 3. User Topic Workflow
-
-Input:
-
-* User enters a topic
-
-Process:
-
-* Retrieve similar posts from FAISS
-* Load style profile
-* Generate LinkedIn post using Gemini 2.5 Flash
-
-Output:
-
-* LinkedIn post
-* Hashtags
-* Image ideas
+| Stage | Description |
+|-------|-------------|
+| **Input** | User enters a topic |
+| **Retrieval** | Similar posts fetched from FAISS index |
+| **Context** | Style profile loaded |
+| **Generation** | Post created via Gemini 2.5 Flash |
+| **Output** | LinkedIn post + hashtags + image ideas |
 
 ### 4. Auto Research Workflow
+Discovers trending topics via **Google News RSS feeds** across:
+- AI & Automation
+- Startups & Business
+- Marketing
 
-Uses Google News RSS feeds to discover:
-
-* AI
-* Startups
-* Business
-* Marketing
-* Automation
-
-Outputs:
-
-* Trending topics
-* Content opportunities
-* LinkedIn angles
+Outputs trending topics, content opportunities, and LinkedIn-ready angles.
 
 ### 5. Image Idea Generator
-
-For each generated post:
-
-* Carousel ideas
-* Visual concepts
-* Content structure suggestions
+For every generated post, suggests:
+- Carousel ideas
+- Visual concepts
+- Content structure recommendations
 
 ---
 
 ## Tech Stack
 
-* Python
-* FastAPI
-* Streamlit
-* Google Gemini 2.5 Flash
-* Sentence Transformers
-* FAISS
-* Pandas
-* Pydantic
+| Category | Tools |
+|----------|-------|
+| Language | Python |
+| Backend API | FastAPI |
+| Frontend UI | Streamlit |
+| LLM | Google Gemini 2.5 Flash |
+| Embeddings | Sentence Transformers |
+| Vector Store | FAISS |
+| Data | Pandas |
+| Validation | Pydantic |
 
 ---
 
 ## Project Structure
 
+```
 linkedin_agent/
-
-├── agents/
-├── api/
-├── config/
-├── data/
-├── data_processing/
-├── embeddings/
-├── faiss_index/
-├── ingestion/
-├── scraper/
-├── ui/
+├── agents/              # Core agent logic
+├── api/                 # FastAPI routes and endpoints
+├── config/              # Configuration and environment settings
+├── data/                # Raw LinkedIn post dataset
+├── data_processing/     # Post cleaning and preprocessing
+├── embeddings/          # Embedding generation scripts
+├── faiss_index/         # Stored FAISS vector index
+├── ingestion/           # Data ingestion pipeline
+├── scraper/             # Google News RSS scraper
+├── ui/                  # Streamlit app
 ├── requirements.txt
 └── README.md
+```
 
 ---
 
-## Setup
+## Setup & Installation
 
-### 1. Clone Repository
-
+### 1. Clone the Repository
+```bash
 git clone <repo_url>
-
 cd NB-MEDIA-LINKEDIN
+```
 
-### 2. Create Virtual Environment
-
+### 2. Create a Virtual Environment
+```bash
 python -m venv myenv
-
-myenv\Scripts\activate
+myenv\Scripts\activate        # Windows
+# source myenv/bin/activate   # macOS/Linux
+```
 
 ### 3. Install Dependencies
-
+```bash
 pip install -r requirements.txt
+```
 
 ### 4. Configure Environment Variables
+Create a `.env` file in the project root:
+```env
+GEMINI_API_KEY=your_api_key_here
+```
 
-Create .env
-
-GEMINI_API_KEY=YOUR_API_KEY
-
-### 5. Run FastAPI
-
+### 5. Start the FastAPI Backend
+```bash
 uvicorn api.main:app --reload
+```
+API docs available at: `http://localhost:8000/docs`
 
-API:
-
-http://localhost:8000/docs
-
-### 6. Run Streamlit
-
+### 6. Launch the Streamlit UI
+```bash
 streamlit run ui/app.py
-
-UI:
-
-http://localhost:8501
+```
+UI available at: `http://localhost:8501`
 
 ---
 
-## Workflow
+## System Workflow
 
-Dataset
-↓
-Data Processing
-↓
-Style Analysis
-↓
-Embeddings
-↓
-FAISS Index
-↓
-Retriever
-↓
-Gemini 2.5 Flash
-↓
-LinkedIn Post
+```
+Dataset (132 LinkedIn Posts)
+        ↓
+  Data Processing
+        ↓
+  Style Analysis  ──────────────────────────┐
+        ↓                                   │
+  Embeddings Generation                     │
+        ↓                                   │
+   FAISS Index                              │
+        ↓                                   │
+   RAG Retriever  ←──── User Topic Input    │
+        ↓                                   │
+  Gemini 2.5 Flash ←── Style Profile ───────┘
+        ↓
+  LinkedIn Post + Hashtags + Image Ideas
+```
 
 ---
 
 ## Example Output
 
-Input Topic:
+**Input Topic:**
+> *"Why most AI automation agencies fail"*
 
-"Why most AI automation agencies fail"
+**Generated Output:**
+- ✅ LinkedIn post (in Nikit Bassi's style)
+- ✅ Relevant hashtags
+- ✅ Image/carousel ideas
 
-Output:
-
-* LinkedIn post
-* Hashtags
-* Image ideas
-
-Generated using:
-
-* RAG retrieval
-* Style profile
-* Gemini 2.5 Flash
+**Powered by:** RAG retrieval + Style profile + Gemini 2.5 Flash
 
 ---
 
-## Assignment Requirements Covered
+## Assignment Requirements
 
-| Requirement              | Status |
-| ------------------------ | ------ |
-| Style Learning           | ✅      |
-| User Input Workflow      | ✅      |
-| Auto Research Workflow   | ✅      |
-| LinkedIn Post Generation | ✅      |
-| Image Ideas              | ✅      |
-| FastAPI API              | ✅      |
-| Streamlit UI             | ✅      |
+| Requirement | Status |
+|-------------|--------|
+| Style Learning (RAG) | ✅ Completed |
+| User Input Workflow | ✅ Completed |
+| Auto Research Workflow | ✅ Completed |
+| LinkedIn Post Generation | ✅ Completed |
+| Image Idea Generation | ✅ Completed |
+| FastAPI Backend | ✅ Completed |
+| Streamlit UI | ✅ Completed |
 
 ---
 
 ## Future Improvements
 
-* LinkedIn auto-posting
-* Analytics dashboard
-* Content calendar
-* A/B testing of hooks
-* Advanced engagement prediction
+- [ ] LinkedIn auto-posting integration
+- [ ] Analytics dashboard for post performance
+- [ ] Content calendar with scheduling
+- [ ] A/B testing of hook variants
+- [ ] Advanced engagement prediction model
+
