@@ -82,7 +82,7 @@ class PostGeneratorAgent:
             "image_ideas": image_ideas,
             "length": len(post_content),
             "generation_model": self.MODEL_NAME if (self.client and self.llm_provider == "google") else "demo",
-            "style_guided": style_guided,
+            "style_guided": style_guidance,
         }
 
     def _generate_with_gemini(self, prompt: str) -> str:

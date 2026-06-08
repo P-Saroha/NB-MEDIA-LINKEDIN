@@ -1,0 +1,62 @@
+{
+  "faiss_search": [
+    "PASS",
+    "3 results, top sim=0.612"
+  ],
+  "style_retriever": [
+    "PASS",
+    "retrieved 3 posts, prompt=2039 chars"
+  ],
+  "topic_research": [
+    "PASS",
+    "5 topics, first='How AI is changing the economics of agency wo'"
+  ],
+  "post_generator": [
+    "FAIL",
+    ""
+  ],
+  "gemini_key": [
+    "PASS",
+    "key=set (len=53)"
+  ],
+  "gemini_generation": [
+    "PASS",
+    "model=gemini-2.5-flash, len=502, hashtags=['#entrepreneurship', '#ai', '#startups', '#founders']"
+  ],
+  "fastapi_app": [
+    "PASS",
+    "11 routes, all required endpoints present"
+  ],
+  "fastapi_endpoints": [
+    "PASS",
+    "health/stats/config/research/generate all 200, post_len=502, model=gemini-2.5-flash"
+  ],
+  "batch_generate": [
+    "PASS",
+    "generated 2/2 posts"
+  ],
+  "streamlit_syntax": [
+    "PASS",
+    "syntax valid, 286 lines"
+  ],
+  "processed_data": [
+    "PASS",
+    "data/nikit_posts_processed.json (323KB)"
+  ],
+  "style_guide": [
+    "PASS",
+    "data/nikit_style_guide_updated.json (1KB)"
+  ],
+  "faiss_index_bin": [
+    "PASS",
+    "faiss_index/faiss_index.bin (198KB)"
+  ],
+  "faiss_metadata": [
+    "PASS",
+    "faiss_index/metadata.pkl (222KB)"
+  ],
+  "data_integrity": [
+    "PASS",
+    "132 posts, avg_likes=188.9"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "T1_root": {
+    "ok": false,
+    "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001373B38C4D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+  },
+  "T2_health": {
+    "ok": false,
+    "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001373B585B90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+  },
+  "T3_stats": {
+    "ok": false,
+    "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/v2/stats (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001373B587FD0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+  },
+  "T4_config": {
+    "ok": false,
+    "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/v2/config (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001373B592250>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+  }
+}

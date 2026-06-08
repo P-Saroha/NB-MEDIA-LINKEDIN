@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 from typing import Dict, List
 
-from ingestion.faiss_pipeline import LinkedInFaissPipeline
+from embeddings.faiss_pipeline import LinkedInFaissPipeline
 
 FAISS_INDEX_PATH = Path("faiss_index/faiss_index.bin")
 METADATA_PATH = Path("faiss_index/metadata.pkl")
