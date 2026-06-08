@@ -1,67 +1,28 @@
-# Environment Variables
-
+# Environment
 .env/
+.env.*
 
-# Python Virtual Environment
-
+# Virtual Environment
 myenv/
 venv/
 env/
 .venv/
 
 # Python Cache
-
-**pycache**/
+__pycache__/
 *.pyc
-*.pyo
-*.pyd
-
-# IDE
-
-.vscode/
-.idea/
-
-# Logs
-
-*.log
 
 # Database
-
 database.db
 *.sqlite3
 
-# FAISS Generated Files
+# Logs
+*.log
 
-faiss_index/*.bin
-faiss_index/*.faiss
-faiss_index/*.pkl
+# IDE
+.vscode/
+.idea/
 
-# Embeddings
-
-embeddings/*.pkl
-embeddings/*.npy
-
-# Cache
-
-cache/
-.cache/
-
-# Test Outputs
-
-test_results*.json
-verification_results*.json
-
-# OS Files
-
+# OS
 .DS_Store
 Thumbs.db
-
-# Build Files
-
-dist/
-build/
-*.egg-info/
-
-# Jupyter
-
-.ipynb_checkpoints/
