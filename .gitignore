@@ -1,0 +1,67 @@
+# Environment Variables
+
+.env/
+
+# Python Virtual Environment
+
+myenv/
+venv/
+env/
+.venv/
+
+# Python Cache
+
+**pycache**/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE
+
+.vscode/
+.idea/
+
+# Logs
+
+*.log
+
+# Database
+
+database.db
+*.sqlite3
+
+# FAISS Generated Files
+
+faiss_index/*.bin
+faiss_index/*.faiss
+faiss_index/*.pkl
+
+# Embeddings
+
+embeddings/*.pkl
+embeddings/*.npy
+
+# Cache
+
+cache/
+.cache/
+
+# Test Outputs
+
+test_results*.json
+verification_results*.json
+
+# OS Files
+
+.DS_Store
+Thumbs.db
+
+# Build Files
+
+dist/
+build/
+*.egg-info/
+
+# Jupyter
+
+.ipynb_checkpoints/

@@ -1,0 +1,24 @@
+{
+  "openai_api_key": "YOUR_OPENAI_API_KEY",
+  "newsapi_key": "YOUR_NEWSAPI_KEY",
+  "linkedin_url": "https://www.linkedin.com/in/nikit-bassi/",
+  "scraper_settings": {
+    "headless": true,
+    "timeout": 30,
+    "wait_time": 5
+  },
+  "post_generation": {
+    "model": "gpt-3.5-turbo",
+    "temperature": 0.7,
+    "max_tokens": 500
+  },
+  "research_topics": [
+    "AI automation",
+    "LinkedIn growth",
+    "content marketing",
+    "entrepreneurship",
+    "digital marketing",
+    "personal branding",
+    "startup strategies"
+  ]
+}

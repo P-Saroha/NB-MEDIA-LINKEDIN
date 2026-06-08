@@ -1,0 +1,64 @@
+{
+  "author": "Nikit Bassi",
+  "total_posts_analyzed": 132,
+  "preferred_opening_style": "hook",
+  "opening_style_distribution": {
+    "hook": 95,
+    "statement": 34,
+    "introduction": 3
+  },
+  "preferred_tone": "neutral",
+  "tone_distribution": {
+    "motivational": 26,
+    "analytical": 36,
+    "neutral": 42,
+    "educational": 20,
+    "storytelling": 8
+  },
+  "top_post_count": 39,
+  "top_post_tone": "analytical",
+  "top_post_opening": "hook",
+  "average_post_length_words": 263,
+  "average_engagement_likes": 189,
+  "performance_distribution": {
+    "medium": 72,
+    "high": 32,
+    "low": 21,
+    "viral": 7
+  },
+  "uses_numbered_lists_pct": 43.2,
+  "uses_arrow_lists_pct": 22.7,
+  "has_question_pct": 83.3,
+  "has_cta_pct": 40.9,
+  "avg_emoji_count": 0.09,
+  "common_hashtags": {
+    "#ai": 67,
+    "#founders": 51,
+    "#startups": 39,
+    "#entrepreneurship": 35,
+    "#growth": 16,
+    "#business": 11,
+    "#leadership": 11,
+    "#AI": 10,
+    "#team": 10,
+    "#success": 9,
+    "#tools": 7,
+    "#founder": 7,
+    "#content": 6,
+    "#career": 5,
+    "#automation": 4,
+    "#innovation": 4,
+    "#agency": 4,
+    "#culture": 4,
+    "#claude": 4,
+    "#jobs": 4
+  },
+  "avg_hashtags_per_post": 3.5,
+  "common_cta_types": {
+    "engagement": 87,
+    "follow_subscribe": 14,
+    "direct_message": 14,
+    "comment_trigger": 9,
+    "share_thoughts": 8
+  }
+}

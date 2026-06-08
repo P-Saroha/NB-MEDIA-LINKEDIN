@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LinkedIn Content Agent - Nikit Bassi Style</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        color: white;
+        margin-bottom: 40px;
+      }
+
+      header h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+      }
+
+      header p {
+        font-size: 1.1em;
+        opacity: 0.9;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+
+      .tab-btn {
+        padding: 12px 24px;
+        border: none;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        cursor: pointer;
+        border-radius: 8px;
+        font-size: 1em;
+        transition: all 0.3s;
+      }
+
+      .tab-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .tab-btn.active {
+        background: white;
+        color: #667eea;
+      }
+
+      .tab-content {
+        display: none;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+      }
+
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 1em;
+      }
+
+      textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      button {
+        padding: 12px 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      .result {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+        border-left: 4px solid #667eea;
+      }
+
+      .result h3 {
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .post-content {
+        background: white;
+        padding: 15px;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        line-height: 1.6;
+        color: #555;
+      }
+
+      .hashtags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .hashtag {
+        background: #e7f3ff;
+        color: #667eea;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.9em;
+      }
+
+      .image-ideas {
+        background: #fff3e0;
+        padding: 15px;
+        border-radius: 6px;
+        margin-top: 10px;
+      }
+
+      .image-ideas h4 {
+        margin-bottom: 10px;
+        color: #ff9800;
+      }
+
+      .image-ideas ul {
+        margin-left: 20px;
+        color: #555;
+      }
+
+      .image-ideas li {
+        margin-bottom: 8px;
+      }
+
+      .loading {
+        display: none;
+        text-align: center;
+        color: #667eea;
+        font-weight: 600;
+      }
+
+      .loading.show {
+        display: block;
+      }
+
+      .spinner {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #667eea;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 10px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .error {
+        background: #ffebee;
+        color: #c62828;
+        padding: 15px;
+        border-radius: 6px;
+        margin-top: 10px;
+        border-left: 4px solid #c62828;
+      }
+
+      .success {
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 15px;
+        border-radius: 6px;
+        margin-top: 10px;
+        border-left: 4px solid #2e7d32;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .card {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #667eea;
+      }
+
+      .card h4 {
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .card p {
+        color: #666;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🚀 LinkedIn Content Agent</h1>
+        <p>Generate LinkedIn posts in the style of Nikit Bassi</p>
+      </header>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('user-input')">
+          👤 User Input
+        </button>
+        <button class="tab-btn" onclick="switchTab('auto-research')">
+          🔍 Auto-Research
+        </button>
+        <button class="tab-btn" onclick="switchTab('calendar')">
+          📅 Calendar
+        </button>
+        <button class="tab-btn" onclick="switchTab('hashtags')">
+          #️⃣ Hashtags
+        </button>
+        <button class="tab-btn" onclick="switchTab('posts')">
+          📄 All Posts
+        </button>
+      </div>
+
+      <!-- User Input Tab -->
+      <div id="user-input" class="tab-content active">
+        <h2>✏️ Create a Post</h2>
+        <div class="form-group">
+          <label>Topic</label>
+          <input
+            type="text"
+            id="topic"
+            placeholder="e.g., LinkedIn automation, AI tools, personal branding..."
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Context (Optional)</label>
+          <textarea
+            id="context"
+            placeholder="Any specific direction or additional context..."
+          ></textarea>
+        </div>
+
+        <button onclick="generatePost()">Generate Post</button>
+
+        <div id="user-loading" class="loading">
+          <div class="spinner"></div>
+          Generating post...
+        </div>
+
+        <div id="user-result"></div>
+      </div>
+
+      <!-- Auto-Research Tab -->
+      <div id="auto-research" class="tab-content">
+        <h2>🔍 Auto-Research Trending Topics</h2>
+        <div class="form-group">
+          <label>Number of Ideas</label>
+          <input type="number" id="num-ideas" value="5" min="1" max="20" />
+        </div>
+
+        <button onclick="runAutoResearch()">Start Auto-Research</button>
+
+        <div id="research-loading" class="loading">
+          <div class="spinner"></div>
+          Researching trending topics...
+        </div>
+
+        <div id="research-result"></div>
+      </div>
+
+      <!-- Calendar Tab -->
+      <div id="calendar" class="tab-content">
+        <h2>📅 Content Calendar</h2>
+        <button onclick="loadCalendar()">Load Calendar</button>
+
+        <div id="calendar-loading" class="loading">
+          <div class="spinner"></div>
+          Loading calendar...
+        </div>
+
+        <div id="calendar-result"></div>
+      </div>
+
+      <!-- Hashtags Tab -->
+      <div id="hashtags" class="tab-content">
+        <h2>#️⃣ Hashtag Research</h2>
+        <div class="form-group">
+          <label>Topic for Hashtag Suggestions</label>
+          <input
+            type="text"
+            id="hashtag-topic"
+            placeholder="e.g., automation, LinkedIn growth..."
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Post Content (Optional)</label>
+          <textarea
+            id="hashtag-content"
+            placeholder="Paste your post content for better suggestions..."
+          ></textarea>
+        </div>
+
+        <button onclick="suggestHashtags()">Get Hashtag Suggestions</button>
+
+        <div id="hashtag-loading" class="loading">
+          <div class="spinner"></div>
+          Generating hashtags...
+        </div>
+
+        <div id="hashtag-result"></div>
+      </div>
+
+      <!-- Posts Tab -->
+      <div id="posts" class="tab-content">
+        <h2>📄 All Generated Posts</h2>
+        <button onclick="loadPosts()">Load Posts</button>
+
+        <div id="posts-loading" class="loading">
+          <div class="spinner"></div>
+          Loading posts...
+        </div>
+
+        <div id="posts-result"></div>
+      </div>
+    </div>
+
+    <script>
+      function switchTab(tabName) {
+        // Hide all tabs
+        document.querySelectorAll(".tab-content").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+
+        // Deactivate all buttons
+        document.querySelectorAll(".tab-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+
+        // Show selected tab
+        document.getElementById(tabName).classList.add("active");
+
+        // Activate corresponding button
+        event.target.classList.add("active");
+      }
+
+      async function generatePost() {
+        const topic = document.getElementById("topic").value.trim();
+        const context = document.getElementById("context").value.trim();
+
+        if (!topic) {
+          showError("user-result", "Please enter a topic");
+          return;
+        }
+
+        showLoading("user-loading");
+
+        try {
+          const response = await fetch("/api/generate-post", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ topic, context }),
+          });
+
+          const data = await response.json();
+          hideLoading("user-loading");
+
+          if (data.status === "success") {
+            displayPostResult("user-result", data);
+          } else {
+            showError("user-result", data.error || "Failed to generate post");
+          }
+        } catch (error) {
+          hideLoading("user-loading");
+          showError("user-result", error.message);
+        }
+      }
+
+      async function runAutoResearch() {
+        const numIdeas = parseInt(document.getElementById("num-ideas").value);
+
+        showLoading("research-loading");
+
+        try {
+          const response = await fetch("/api/auto-research", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ num_ideas: numIdeas }),
+          });
+
+          const data = await response.json();
+          hideLoading("research-loading");
+
+          if (data.status === "success") {
+            displayResearchResult("research-result", data);
+          } else {
+            showError(
+              "research-result",
+              data.error || "Failed to run research",
+            );
+          }
+        } catch (error) {
+          hideLoading("research-loading");
+          showError("research-result", error.message);
+        }
+      }
+
+      async function loadCalendar() {
+        showLoading("calendar-loading");
+
+        try {
+          const response = await fetch("/api/content-calendar");
+          const data = await response.json();
+          hideLoading("calendar-loading");
+
+          displayCalendarResult("calendar-result", data);
+        } catch (error) {
+          hideLoading("calendar-loading");
+          showError("calendar-result", error.message);
+        }
+      }
+
+      async function suggestHashtags() {
+        const topic = document.getElementById("hashtag-topic").value.trim();
+        const content = document.getElementById("hashtag-content").value.trim();
+
+        if (!topic) {
+          showError("hashtag-result", "Please enter a topic");
+          return;
+        }
+
+        showLoading("hashtag-loading");
+
+        try {
+          const response = await fetch("/api/hashtag-suggestions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ topic, content }),
+          });
+
+          const data = await response.json();
+          hideLoading("hashtag-loading");
+
+          displayHashtagResult("hashtag-result", data);
+        } catch (error) {
+          hideLoading("hashtag-loading");
+          showError("hashtag-result", error.message);
+        }
+      }
+
+      async function loadPosts() {
+        showLoading("posts-loading");
+
+        try {
+          const response = await fetch("/api/posts");
+          const data = await response.json();
+          hideLoading("posts-loading");
+
+          displayPostsResult("posts-result", data);
+        } catch (error) {
+          hideLoading("posts-loading");
+          showError("posts-result", error.message);
+        }
+      }
+
+      function displayPostResult(elementId, data) {
+        let html = '<div class="result">';
+        html += "<h3>✓ Post Generated Successfully</h3>";
+        html +=
+          '<div class="post-content">' +
+          escapeHtml(data.post_content) +
+          "</div>";
+
+        if (data.hashtags && data.hashtags.length > 0) {
+          html += '<div class="hashtags">';
+          data.hashtags.forEach((tag) => {
+            html += '<span class="hashtag">' + escapeHtml(tag) + "</span>";
+          });
+          html += "</div>";
+        }
+
+        if (data.image_ideas && data.image_ideas.length > 0) {
+          html += '<div class="image-ideas">';
+          html += "<h4>🖼️ Image Ideas:</h4>";
+          html += "<ul>";
+          data.image_ideas.forEach((idea) => {
+            html += "<li>" + escapeHtml(idea) + "</li>";
+          });
+          html += "</ul>";
+          html += "</div>";
+        }
+
+        html += "</div>";
+
+        document.getElementById(elementId).innerHTML = html;
+      }
+
+      function displayResearchResult(elementId, data) {
+        let html = '<div class="result success">';
+        html += `<h3>✓ Found ${data.relevant_topics || 0} Relevant Topics</h3>`;
+        html += `<p>Total topics discovered: ${data.topics_found || 0}</p>`;
+
+        if (data.post_ideas && data.post_ideas.length > 0) {
+          html += '<h4 style="margin-top: 20px;">Top Post Ideas:</h4>';
+          html += '<div class="grid">';
+          data.post_ideas.forEach((idea, index) => {
+            html += '<div class="card">';
+            html += `<h4>${index + 1}. ${escapeHtml(idea.main_topic)}</h4>`;
+            html += `<p><strong>Hook:</strong> ${escapeHtml(idea.hook)}</p>`;
+            html += `<p><strong>Relevance:</strong> ${(idea.relevance_score * 100).toFixed(0)}%</p>`;
+            html += "</div>";
+          });
+          html += "</div>";
+        }
+
+        html += "</div>";
+
+        document.getElementById(elementId).innerHTML = html;
+      }
+
+      function displayCalendarResult(elementId, data) {
+        let html = '<div class="result">';
+        html += "<h3>📅 Content Calendar</h3>";
+
+        if (data.distribution) {
+          html += "<h4>Content Distribution:</h4>";
+          html += `<p>Total posts: ${data.distribution.total_posts}</p>`;
+          if (data.distribution.topics) {
+            html += '<ul style="margin-left: 20px;">';
+            for (const [topic, stats] of Object.entries(
+              data.distribution.topics,
+            )) {
+              html += `<li>${escapeHtml(topic)}: ${stats.count} posts (${stats.percentage.toFixed(1)}%)</li>`;
+            }
+            html += "</ul>";
+          }
+        }
+
+        if (data.schedule) {
+          html +=
+            '<h4 style="margin-top: 20px;">Optimal Posting Schedule:</h4>';
+          for (const [day, info] of Object.entries(data.schedule)) {
+            html += `<p><strong>${day}:</strong> ${info.optimal_times.join(", ")} - ${info.reason}</p>`;
+          }
+        }
+
+        html += "</div>";
+
+        document.getElementById(elementId).innerHTML = html;
+      }
+
+      function displayHashtagResult(elementId, data) {
+        let html = '<div class="result">';
+        html += "<h3>#️⃣ Hashtag Suggestions</h3>";
+
+        if (data.hashtags && data.hashtags.length > 0) {
+          html += '<div class="hashtags">';
+          data.hashtags.forEach((tag) => {
+            html += '<span class="hashtag">' + escapeHtml(tag) + "</span>";
+          });
+          html += "</div>";
+        }
+
+        if (data.analysis) {
+          html += '<p style="margin-top: 15px;"><strong>Analysis:</strong></p>';
+          html += `<p>Valid hashtags: ${data.analysis.valid_count}/${data.analysis.hashtags.length}</p>`;
+          if (
+            data.analysis.recommendations &&
+            data.analysis.recommendations.length > 0
+          ) {
+            html += "<p><strong>Recommendations:</strong></p>";
+            html += '<ul style="margin-left: 20px;">';
+            data.analysis.recommendations.forEach((rec) => {
+              html += `<li>${escapeHtml(rec)}</li>`;
+            });
+            html += "</ul>";
+          }
+        }
+
+        html += "</div>";
+
+        document.getElementById(elementId).innerHTML = html;
+      }
+
+      function displayPostsResult(elementId, data) {
+        if (!data.posts || data.posts.length === 0) {
+          document.getElementById(elementId).innerHTML =
+            "<p>No posts yet. Create one first!</p>";
+          return;
+        }
+
+        let html = `<p>Found ${data.count} posts</p>`;
+        data.posts.forEach((post, index) => {
+          html += '<div class="result" style="margin-top: 15px;">';
+          html += `<h4>${index + 1}. ${escapeHtml(post.title)}</h4>`;
+          html += `<p><strong>Topic:</strong> ${escapeHtml(post.topic)}</p>`;
+          html += `<p><strong>Status:</strong> ${escapeHtml(post.status)}</p>`;
+          html += `<p><strong>Created:</strong> ${escapeHtml(post.created_at)}</p>`;
+          html += "</div>";
+        });
+
+        document.getElementById(elementId).innerHTML = html;
+      }
+
+      function showLoading(elementId) {
+        document.getElementById(elementId).classList.add("show");
+      }
+
+      function hideLoading(elementId) {
+        document.getElementById(elementId).classList.remove("show");
+      }
+
+      function showError(elementId, message) {
+        const result = document.getElementById(elementId);
+        result.innerHTML = `<div class="error">${escapeHtml(message)}</div>`;
+      }
+
+      function escapeHtml(text) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+{
+  "writing_style_analysis": {
+    "tone": "Professional yet conversational, motivational, action-oriented",
+    "average_length": "200-400 words per post",
+    "key_characteristics": [
+      "Starts with a hook or question",
+      "Tells a story or personal anecdote",
+      "Provides actionable advice or insights",
+      "Uses emojis strategically (not overused)",
+      "Ends with a call-to-action or reflection question",
+      "Focuses on automation, growth, and entrepreneurship",
+      "References trends and practical applications"
+    ],
+    "common_topics": [
+      "LinkedIn automation strategies",
+      "Content creation workflows",
+      "Personal branding",
+      "Entrepreneurial insights",
+      "Digital marketing tactics",
+      "AI and automation tools",
+      "Growth strategies"
+    ],
+    "emoji_usage": {
+      "frequency": "1-3 emojis per post",
+      "common_emojis": ["📈", "🚀", "💡", "⚡", "🎯", "✨", "💼"],
+      "placement": "strategic - beginning or end of sentences/paragraphs"
+    },
+    "structure_template": {
+      "hook": "Opening question or statement that grabs attention",
+      "story": "Brief personal or professional anecdote",
+      "insight": "Key learning or insight",
+      "actionable_advice": "Practical steps readers can take",
+      "cta": "Question or call-to-action to boost engagement"
+    },
+    "hashtag_patterns": [
+      "#automation",
+      "#LinkedIn",
+      "#Entrepreneurship",
+      "#GrowthHacking",
+      "#ContentMarketing",
+      "#PersonalBrand",
+      "#AI",
+      "#Strategy"
+    ],
+    "engagement_tactics": [
+      "Asks questions to encourage comments",
+      "Uses numbered lists for clarity",
+      "Breaks content into short paragraphs",
+      "Includes specific metrics or examples",
+      "Ends with something relatable or thought-provoking"
+    ]
+  },
+  "sample_style_guidelines": {
+    "opening_hooks": [
+      "Here's what I learned about...",
+      "Most people get this wrong about...",
+      "I used to think... but then...",
+      "A founder asked me recently...",
+      "Last week, I realized..."
+    ],
+    "transition_phrases": [
+      "Here's the thing:",
+      "The key insight:",
+      "What changed everything:",
+      "The real benefit:",
+      "What works:"
+    ],
+    "closing_patterns": [
+      "What would you do differently?",
+      "What's your take on this?",
+      "Curious to hear your thoughts.",
+      "What's working for you?",
+      "The opportunity is clear."
+    ]
+  }
+}
