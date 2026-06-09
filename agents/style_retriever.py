@@ -41,10 +41,20 @@ class StyleRetriever:
         """
         try:
             results = self.pipeline.search(query=topic, top_k=k)
+
+            # Prefer higher-performing posts
+            results = sorted(
+                results,
+                key=lambda x: x.get("engagement_score", 0),
+                reverse=True
+            )
+
             return results
+
         except FileNotFoundError:
             print("Warning: FAISS index not found. Run Phase 2 first.")
             return []
+
         except Exception as e:
             print(f"Warning: retrieval failed: {e}")
             return []
@@ -98,7 +108,7 @@ class StyleRetriever:
         Main entry point: retrieve similar posts + build style guidance for a topic.
         Returns a dict ready to be passed into the generation prompt.
         """
-        similar_posts = self.retrieve_similar_posts(topic, k=3)
+        similar_posts = self.retrieve_similar_posts(topic, k=5)
         patterns = self.extract_style_patterns(similar_posts)
 
         return {
@@ -115,18 +125,20 @@ class StyleRetriever:
         few_shot_block = ""
         if retrieved_posts:
             few_shot_block = "\n--- REFERENCE POSTS FROM NIKIT'S ACTUAL LINKEDIN ---\n"
-            for i, post in enumerate(retrieved_posts[:2], 1):
+            for i, post in enumerate(retrieved_posts[:3], 1):
                 content = post.get("content", "").strip()
                 if content:
-                    # Truncate to first 400 chars to keep context tight
-                    excerpt = content[:400] + ("..." if len(content) > 400 else "")
+                    # Truncate to first 600 chars to keep context tight
+                    excerpt = content[:600] + ("..." if len(content) > 600 else "")
                     few_shot_block += f"\nExample {i} (engagement score: {post.get('engagement_score', 0)}):\n{excerpt}\n"
 
         structure_str = " → ".join(patterns["structure"])
         tone_str = ", ".join(f'"{t}"' for t in patterns["tone_markers"][:4])
         hashtags_str = " ".join(patterns["hashtag_suggestions"][:5])
 
-        prompt = f"""You are Nikit Bassi, Founder of NB Media — an AI-powered 8-figure content agency.
+        prompt = f"""You are an expert LinkedIn ghostwriter.
+
+Write in Nikit Bassi's style without pretending to be him.
 Write a high-retention LinkedIn post about: {topic}
 
 {few_shot_block}
@@ -151,8 +163,15 @@ HASHTAGS (add 3-4 at the end):
 
 IMPORTANT:
 - Never sound like a generic AI assistant
-- Start IMMEDIATELY with the hook — no warm-up
-- Be specific with numbers, names, examples (e.g. "₹6 lakhs", "200+ hours/month", "8-figure agency")
+- Start immediately with a strong hook
+- Use a founder, company, or real-world business example
+- Include at least 2 specific numbers, metrics, revenues, percentages, funding amounts, user counts, or time periods
+- Use a 3-5 step framework whenever appropriate
+- Use short 1-2 line paragraphs
+- Create curiosity before revealing the lesson
+- Focus on business opportunities, founder journeys, AI adoption, startups, growth, or execution
+- End with a question
+- Learn from the reference posts above and imitate their structure and storytelling patterns
 - This post will be published directly on LinkedIn
 
 Write the post now:"""

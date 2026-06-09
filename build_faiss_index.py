@@ -145,7 +145,7 @@ try:
     query_embedding = model.encode([test_query], show_progress_bar=False)[0]
     query_embedding = np.array([query_embedding], dtype='float32')
     
-    distances, indices = index.search(query_embedding, k=3)
+    distances, indices = index.search(query_embedding, k=5)
     
     print(f"✅ Test search successful")
     print(f"\nTop 3 results for query: '{test_query}'")
